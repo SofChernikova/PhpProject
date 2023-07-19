@@ -35,4 +35,6 @@ class LotController extends AbstractController
         return $this->json($this->lotService->save($dto));
     }
 
+
+
 }

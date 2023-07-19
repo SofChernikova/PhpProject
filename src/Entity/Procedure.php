@@ -24,7 +24,7 @@ class Procedure
 
     #[ORM\Column(length: 255)]
     private ?string $konkursName;
-    #[ORM\ManyToOne(fetch: 'EAGER', inversedBy: 'procedures')]
+    #[ORM\ManyToOne(fetch: 'EAGER')]
     #[ORM\JoinColumn(referencedColumnName: 'burks', nullable: false)]
     #[ORM\Column(name: 'burks_id', length: 255)]
     private ?string $burks;
@@ -35,39 +35,23 @@ class Procedure
     #[ORM\Column(length: 5)]
     private ?string $stat;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
-    private ?\DateTimeImmutable $crtDate;
+    #[ORM\Column]
+    private ?string $crtDate;
 
-    #[ORM\Column(type: Types::TIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $crtTime;
+    #[ORM\Column]
+    private ?string $crtTime;
 
     #[ORM\Column(length: 12)]
     private ?string $crtUser;
-
-//    #[ORM\OneToMany(mappedBy: 'konkursId', targetEntity: Lot::class, fetch: 'EAGER', orphanRemoval: true)]
-//    private Collection $lots;
 
     public function __toString(): string
     {
         return $this->konkursId;
     }
 
-//    #[ORM\OneToMany(mappedBy: 'konkursId', targetEntity: Offer::class, orphanRemoval: true)]
-//    private Collection $offers;
-//
-//    #[ORM\OneToMany(mappedBy: 'konkursId', targetEntity: Specialist::class)]
-//    private Collection $specialists;
-
-//    #[ORM\ManyToMany(targetEntity: Specialist::class, mappedBy: 'konkursId')]
-//    private Collection $specialists;
-
-
 
     public function __construct()
     {
-//        $this->lots = new ArrayCollection();
-//        $this->offers = new ArrayCollection();
-//        $this->specialists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,34 +131,32 @@ class Procedure
         return $this;
     }
 
-    public function getCrtDate(): ?\DateTimeImmutable
+    public function getCrtDate(): ?string
     {
         return $this->crtDate;
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function setCrtDate(DateTimeImmutable $crtDate): static
+
+    public function setCrtDate(string $crtDate): static
     {
 //        $date = new \DateTimeImmutable();
 //        $formattedDate = $date->format('Y-m-d');
 
         //todo проверить работоспособность
 
-        $this->crtDate = $crtDate->format('Y-m-d');
+        $this->crtDate = $crtDate;
 
         return $this;
     }
 
-    public function getCrtTime(): ?\DateTimeImmutable
+    public function getCrtTime(): ?string
     {
         return $this->crtTime;
     }
 
-    public function setCrtTime(DateTimeImmutable $crtTime): static
+    public function setCrtTime(string $crtTime): static
     {
-        $this->crtTime = $crtTime->format('H:i:s');
+        $this->crtTime = $crtTime;
 
         return $this;
     }
@@ -190,91 +172,4 @@ class Procedure
 
         return $this;
     }
-
-//    /**
-//     * @return Collection<int, Lot>
-//     */
-//    public function getLots(): Collection
-//    {
-//        return $this->lots;
-//    }
-//
-//    public function addLot(Lot $lot): static
-//    {
-//        if (!$this->lots->contains($lot)) {
-//            $this->lots->add($lot);
-//            $lot->setKonkursId($this);
-//        }
-//
-//        return $this;
-//    }
-//
-//    public function removeLot(Lot $lot): static
-//    {
-//        if ($this->lots->removeElement($lot)) {
-//            // set the owning side to null (unless already changed)
-//            if ($lot->getKonkursId() === $this) {
-//                $lot->setKonkursId(null);
-//            }
-//        }
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return Collection<int, Offer>
-//     */
-//    public function getOffers(): Collection
-//    {
-//        return $this->offers;
-//    }
-//
-//    public function addOffer(Offer $offer): static
-//    {
-//        if (!$this->offers->contains($offer)) {
-//            $this->offers->add($offer);
-//            $offer->setKonkursId($this);
-//        }
-//
-//        return $this;
-//    }
-//
-//    public function removeOffer(Offer $offer): static
-//    {
-//        if ($this->offers->removeElement($offer)) {
-//            // set the owning side to null (unless already changed)
-//            if ($offer->getKonkursId() === $this) {
-//                $offer->setKonkursId(null);
-//            }
-//        }
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return Collection<int, Specialist>
-//     */
-//    public function getSpecialists(): Collection
-//    {
-//        return $this->specialists;
-//    }
-//
-//    public function addSpecialist(Specialist $specialist): static
-//    {
-//        if (!$this->specialists->contains($specialist)) {
-//            $this->specialists->add($specialist);
-//            $specialist->addKonkursId($this);
-//        }
-//
-//        return $this;
-//    }
-//
-//    public function removeSpecialist(Specialist $specialist): static
-//    {
-//        if ($this->specialists->removeElement($specialist)) {
-//            $specialist->removeKonkursId($this);
-//        }
-//
-//        return $this;
-//    }
 }

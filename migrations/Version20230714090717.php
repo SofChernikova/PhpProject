@@ -58,8 +58,8 @@ final class Version20230714090717 extends AbstractMigration
     konkurs_name VARCHAR(255) NOT NULL,
     org_key VARCHAR(3) NOT NULL,
     stat VARCHAR(5) NOT NULL,
-    crt_date DATE NOT NULL,
-    crt_time TIME(0) WITHOUT TIME ZONE NOT NULL,
+    crt_date VARCHAR(20) NOT NULL,
+    crt_time VARCHAR(20) NOT NULL,
     crt_user VARCHAR(12) NOT NULL)');
 //        $this->addSql('CREATE INDEX IDX_5E92500113E7EE5 ON ZTINMM_TK_H (burks_id)');
 //        $this->addSql('COMMENT ON COLUMN ZTINMM_TK_H.crt_date IS \'(DC2Type:date_immutable)\'');
@@ -74,11 +74,11 @@ final class Version20230714090717 extends AbstractMigration
     lifnr VARCHAR(10) NOT NULL UNIQUE,
     lifnr_name VARCHAR(132) NOT NULL,
     orf_date VARCHAR(20) NOT NULL,
-    orf_time VARCHAR(20) WITHOUT TIME ZONE NOT NULL,
+    orf_time VARCHAR(20) NOT NULL,
     price_nds NUMERIC(6, 2) NOT NULL,
     price_with_nds NUMERIC(6, 2) NOT NULL,
     deliver_date VARCHAR(20) NOT NULL,
-    deliver_time VARCHAR(20) WITHOUT TIME ZONE NOT NULL,
+    deliver_time VARCHAR(20) NOT NULL,
     win_flg VARCHAR(1) DEFAULT NULL)');
 
 //        $this->addSql('CREATE INDEX IDX_15A0E2065A529B16 ON ZTINMM_TK_OFR (konkurs_id_id)');
@@ -109,8 +109,8 @@ final class Version20230714090717 extends AbstractMigration
     vote_res VARCHAR(1) DEFAULT NULL,
     vote_finish VARCHAR(1) DEFAULT NULL,
     vote_win VARCHAR(1) DEFAULT NULL,
-    vote_date DATE DEFAULT NULL,
-    vote_time TIME(0) WITHOUT TIME ZONE DEFAULT NULL,
+    vote_date VARCHAR(20) DEFAULT NULL,
+    vote_time VARCHAR(20) DEFAULT NULL,
     vote_user VARCHAR(12) NOT NULL)');
 
 //        $this->addSql('CREATE UNIQUE INDEX UNIQ_4958DB595A529B16 ON ZTINMM_TK_VOTE (konkurs_id_id)');

@@ -26,91 +26,90 @@ class ProcedureDto
         private string             $burks,
 
 
-        private ?string             $orgKey,
+        private string             $orgKey,
 
 
-        private ?string             $stat,
+        private string             $stat,
 
         #[Assert\Regex(pattern: '/^\d{4}-\d{2}-\d{2}$/', message: 'Неверный формат: 2021-09-15')]
         private string $crtDate,
 
         #[Assert\Regex(pattern: '/^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/', message: 'Неверный формат: 10:00:00')]
-        private ?\DateTimeImmutable $crtTime,
+        private string $crtTime,
 
-
-        private ?string             $crtUser,
+        private string             $crtUser,
     )
     {
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getKonkursId(): ?string
+    public function getKonkursId(): string
     {
         return $this->konkursId;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getKonkursNr(): ?string
+    public function getKonkursNr(): string
     {
         return $this->konkursNr;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getKonkursName(): ?string
+    public function getKonkursName(): string
     {
         return $this->konkursName;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getBurks(): ?string
+    public function getBurks(): string
     {
         return $this->burks;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getOrgKey(): ?string
+    public function getOrgKey(): string
     {
         return $this->orgKey;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getStat(): ?string
+    public function getStat(): string
     {
         return $this->stat;
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return string
      */
-    public function getCrtDate(): ?\DateTimeImmutable
+    public function getCrtDate(): string
     {
         return $this->crtDate;
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return string
      */
-    public function getCrtTime(): ?\DateTimeImmutable
+    public function getCrtTime(): string
     {
         return $this->crtTime;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getCrtUser(): ?string
+    public function getCrtUser(): string
     {
         return $this->crtUser;
     }
