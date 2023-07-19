@@ -16,10 +16,10 @@ class OfferController extends AbstractController
     {
     }
 
-    #[Route('/all/{lotId}', name: 'all offers by lotId')]
-    public function findAllByLotId($lotID): JsonResponse
+    #[Route('/all/{lotId}', name: 'offers lotId')]
+    public function findByLotId($lotId): JsonResponse
     {
-        return $this->json($this->offerService->findByLotId($lotID));
+        return $this->json($this->offerService->findByLotId($lotId));
     }
 
     #[Route('/{tabix}', name: 'offers by tabix')]
@@ -27,7 +27,8 @@ class OfferController extends AbstractController
     {
         return $this->json($this->offerService->findByTabix($tabix));
     }
-   #[Route('/save')]
+
+   #[Route('/offer/save')]
     public function save(#[MapRequestPayload] OfferDto $dto){
         return $this->json($this->offerService->save($dto));
     }

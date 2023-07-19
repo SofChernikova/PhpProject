@@ -2,9 +2,7 @@
 
 namespace App\Dto;
 
-use App\Entity\Lot;
-use App\Entity\Procedure;
-use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class OfferDto
 {
@@ -13,141 +11,144 @@ class OfferDto
         #[Assert\NotNull(message: 'Параметр не может быть пустым!')]
         #[Assert\Length(max: 12,
             maxMessage: 'Параметр не может быть больше {{ limit }} символов!')]
-        private ?string             $konkursId,
+        private string             $konkursId,
 
         #[Assert\NotBlank(message: 'Параметр не может быть пустым!')]
         #[Assert\NotNull(message: 'Параметр не может быть пустым!')]
         #[Assert\Length(max: 12,
             maxMessage: 'Параметр не может быть больше {{ limit }} символов!')]
-        private ?string             $lotId,
+        private string             $lotId,
 
-        private ?string             $tabix,
+        private string             $tabix,
 
         #[Assert\NotBlank(message: 'Параметр не может быть пустым!')]
         #[Assert\NotNull(message: 'Параметр не может быть пустым!')]
         #[Assert\Length(max: 10, maxMessage: 'Параметр не может быть больше {{ limit }} символов!')]
-        private ?string             $lifnr,
+        private string             $lifnr,
 
         #[Assert\NotBlank(message: 'Параметр не может быть пустым!')]
         #[Assert\NotNull(message: 'Параметр не может быть пустым!')]
         #[Assert\Length(max: 132, maxMessage: 'Параметр не может быть больше {{ limit }} символов!')]
-        private ?string             $lifnrName,
+        private string             $lifnrName,
 
         #[Assert\Regex(pattern: '/^\d{4}-\d{2}-\d{2}$/', message: 'Неверный формат: 2021-09-15')]
-        private ?\DateTimeImmutable $orfDate,
+        private string $orfDate,
 
         #[Assert\Regex(pattern: '/^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/', message: 'Неверный формат: 10:00:00')]
-        private ?\DateTimeImmutable $orfTime,
+        private string $orfTime,
 
-        private ?string             $priceNds,
-        private ?string             $priceWithNds,
+        private string             $priceNds,
+        private string             $priceWithNds,
 
         #[Assert\Regex(pattern: '/^\d{4}-\d{2}-\d{2}$/', message: 'Неверный формат: 2021-09-15')]
-        private ?\DateTimeImmutable $deliverDate,
+        private string $deliverDate,
 
         #[Assert\Regex(pattern: '/^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/', message: 'Неверный формат: 10:00:00')]
-        private ?\DateTimeImmutable $deliverTime,
+        private string $deliverTime,
 
        #[Assert\Length(max: 1, maxMessage: 'Параметр не может быть больше {{ limit }} символов!')]
-        private ?string             $winFlg
+        private string             $winFlg
     )
     {
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getKonkursId(): ?string
+    public function getKonkursId(): string
     {
         return $this->konkursId;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getLotId(): ?string
+    public function getLotId(): string
     {
         return $this->lotId;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getTabix(): ?string
+    public function getTabix(): string
     {
         return $this->tabix;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getLifnr(): ?string
+    public function getLifnr(): string
     {
         return $this->lifnr;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getLifnrName(): ?string
+    public function getLifnrName(): string
     {
         return $this->lifnrName;
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return string
      */
-    public function getOrfDate(): ?\DateTimeImmutable
+    public function getOrfDate(): string
     {
         return $this->orfDate;
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return string
      */
-    public function getOrfTime(): ?\DateTimeImmutable
+    public function getOrfTime(): string
     {
         return $this->orfTime;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getPriceNds(): ?string
+    public function getPriceNds(): string
     {
         return $this->priceNds;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getPriceWithNds(): ?string
+    public function getPriceWithNds(): string
     {
         return $this->priceWithNds;
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return string
      */
-    public function getDeliverDate(): ?\DateTimeImmutable
+    public function getDeliverDate(): string
     {
         return $this->deliverDate;
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return string
      */
-    public function getDeliverTime(): ?\DateTimeImmutable
+    public function getDeliverTime(): string
     {
         return $this->deliverTime;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getWinFlg(): ?string
+    public function getWinFlg(): string
     {
         return $this->winFlg;
     }
+
+
+
 }
-//todo для децимал написать ограничения
+

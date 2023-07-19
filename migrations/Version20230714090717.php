@@ -73,12 +73,12 @@ final class Version20230714090717 extends AbstractMigration
     tabix NUMERIC(5, 2) NOT NULL,
     lifnr VARCHAR(10) NOT NULL UNIQUE,
     lifnr_name VARCHAR(132) NOT NULL,
-    orf_date DATE NOT NULL,
-    orf_time TIME(0) WITHOUT TIME ZONE NOT NULL,
+    orf_date VARCHAR(20) NOT NULL,
+    orf_time VARCHAR(20) WITHOUT TIME ZONE NOT NULL,
     price_nds NUMERIC(6, 2) NOT NULL,
     price_with_nds NUMERIC(6, 2) NOT NULL,
-    deliver_date DATE NOT NULL,
-    deliver_time TIME(0) WITHOUT TIME ZONE NOT NULL,
+    deliver_date VARCHAR(20) NOT NULL,
+    deliver_time VARCHAR(20) WITHOUT TIME ZONE NOT NULL,
     win_flg VARCHAR(1) DEFAULT NULL)');
 
 //        $this->addSql('CREATE INDEX IDX_15A0E2065A529B16 ON ZTINMM_TK_OFR (konkurs_id_id)');

@@ -24,7 +24,8 @@ class MapService
             case '-b':
                 $ignoredAttributes = ['konkursId', 'lifnr', 'voteDate', 'voteTime'];
                 break;
-            case '-l' || '-s':
+            case '-l':
+            case '-s':
                 $ignoredAttributes = ['konkursId'];
                 break;
             case '-o':

@@ -17,10 +17,12 @@ class Offer
 
     #[ORM\ManyToOne(fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'konkurs_id_id', referencedColumnName: 'konkurs_id', nullable: false)]
+    #[ORM\Column(name: "konkurs_id_id")]
     private ?Procedure $konkursId;
 
     #[ORM\ManyToOne(fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'lot_id_id', referencedColumnName: 'lot_id', nullable: false)]
+    #[ORM\Column(name: "lot_id_id")]
     private ?Lot $lotId;
 
 
@@ -38,11 +40,11 @@ class Offer
     #[ORM\Column(length: 132)]
     private ?string $lifnrName;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
-    private ?\DateTimeImmutable $orfDate;
+    #[ORM\Column]
+    private ?string $orfDate;
 
-    #[ORM\Column(type: Types::TIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $orfTime;
+    #[ORM\Column]
+    private ?string $orfTime;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
     private ?string $priceNds;
@@ -50,11 +52,11 @@ class Offer
     #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
     private ?string $priceWithNds;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
-    private ?\DateTimeImmutable $deliverDate;
+    #[ORM\Column]
+    private ?string $deliverDate;
 
-    #[ORM\Column(type: Types::TIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $deliverTime;
+    #[ORM\Column]
+    private ?string $deliverTime;
 
     #[ORM\Column(length: 1, nullable: true)]
     private ?string $winFlg;
@@ -124,26 +126,26 @@ class Offer
         return $this;
     }
 
-    public function getOrfDate(): ?\DateTimeImmutable
+    public function getOrfDate(): ?string
     {
         return $this->orfDate;
     }
 
-    public function setOrfDate(\DateTimeImmutable $orfDate): static
+    public function setOrfDate(string $orfDate): static
     {
-        $this->orfDate = $orfDate->format('Y-m-d');
+        $this->orfDate = $orfDate;
 
         return $this;
     }
 
-    public function getOrfTime(): ?\DateTimeImmutable
+    public function getOrfTime(): ?string
     {
         return $this->orfTime;
     }
 
-    public function setOrfTime(\DateTimeImmutable $orfTime): static
+    public function setOrfTime(string $orfTime): static
     {
-        $this->orfTime = $orfTime->format('H:i:s');
+        $this->orfTime = $orfTime;
 
         return $this;
     }
@@ -172,26 +174,26 @@ class Offer
         return $this;
     }
 
-    public function getDeliverDate(): ?\DateTimeImmutable
+    public function getDeliverDate(): ?string
     {
         return $this->deliverDate;
     }
 
-    public function setDeliverDate(\DateTimeImmutable $deliverDate): static
+    public function setDeliverDate(string $deliverDate): static
     {
-        $this->deliverDate = $deliverDate->format('Y-m-d');
+        $this->deliverDate = $deliverDate;
 
         return $this;
     }
 
-    public function getDeliverTime(): ?\DateTimeImmutable
+    public function getDeliverTime(): ?string
     {
         return $this->deliverTime;
     }
 
-    public function setDeliverTime(\DateTimeImmutable $deliverTime): static
+    public function setDeliverTime(string $deliverTime): static
     {
-        $this->deliverTime = $deliverTime->format('H:i:s');
+        $this->deliverTime = $deliverTime;
 
         return $this;
     }
