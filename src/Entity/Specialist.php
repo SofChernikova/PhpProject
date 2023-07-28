@@ -14,8 +14,8 @@ class Specialist
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'specialists')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(fetch: 'EAGER')]
+    #[ORM\JoinColumn(name: 'konkurs_id_id', referencedColumnName: 'konkurs_id', nullable: false)]
     private ?Procedure $konkursId = null;
 
     #[ORM\Column]

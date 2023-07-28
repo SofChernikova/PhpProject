@@ -13,9 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ProcedureService
 {
     public function __construct(private ProcedureRepository    $procedureRepository,
-                                private EntityManagerInterface $entityManager,
-                                private BalanceUnitService     $balanceUnitService,
-                                private MapService             $mapService)
+                                private BalanceUnitService     $balanceUnitService)
     {
     }
 
@@ -43,20 +41,17 @@ class ProcedureService
         return $proc;
     }
 
+    public function findByName($name){
+        $proc = $this->procedureRepository->findBy(['konkursName' => $name]);
+        if ($proc == null) throw new MyException("Неверное значение [konkursName]");
+        return $proc;
+    }
+
     public function save(ProcedureDto $dto)
     {
-        $procedure = new Procedure();
+        $this->balanceUnitService->findUnitById($dto->getBurks());
 
-        $procedure->setCrtDate($dto->getCrtDate());
-        $procedure->setCrtTime($dto->getCrtTime());
-
-        $burks = $this->balanceUnitService->findUnitById($dto->getBurks());
-        $procedure->setBurks($burks->getBurks());
-
-        $procedure = $this->mapService->mapDtoToEntity($dto, $procedure, '-p');
-        $this->entityManager->persist($procedure);
-        $this->entityManager->flush();
-
-        return $procedure;
+        $int = $this->procedureRepository->save($dto);
+        if($int > 0) return 'Успешно';
     }
 }

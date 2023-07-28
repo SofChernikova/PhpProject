@@ -3,8 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProcedureRepository;
-use DateTimeImmutable;
-use Doctrine\DBAL\Types\Types;
+
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProcedureRepository::class)]

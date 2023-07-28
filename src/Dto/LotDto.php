@@ -30,7 +30,6 @@ class LotDto
         #[Assert\Length(max: 4, maxMessage: 'Параметр не может быть больше {{ limit }} символов!')]
         private string $ekorg,
 
-        //todo тип децимал 6 знаков, 2 после .
         private string $finanLimitWvat,
         private string $finanLimitWovat,
 

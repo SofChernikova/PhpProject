@@ -12,23 +12,16 @@ class SpecialistService
 {
     public function __construct(
         private SpecialistRepository $specialistRepository,
-        private EntityManagerInterface $entityManager,
-        private MapService $mapService,
-        private ProcedureService $procedureService
+        private ProcedureService     $procedureService
     )
     {
     }
 
-    public function save(SpecialistDto $dto){
-        $entity = new Specialist();
+    public function save(SpecialistDto $dto)
+    {
+        $this->procedureService->findById($dto->getKonkursId());
 
-        $procedure = $this->procedureService->findById($dto->getKonkursId());
-        $entity->setKonkursId($procedure);
-
-        $entity = $this->mapService->mapDtoToEntity($dto, $entity, '-s');
-        $this->entityManager->persist($entity);
-        $this->entityManager->flush();
-
-        return $entity;
+        $int = $this->specialistRepository->save($dto);
+        if ($int > 0) return 'Успешно';
     }
 }

@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\LotRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,13 +13,14 @@ class Lot
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'id')]
-    private int $lotLey;
+    private int $id;
 
     #[ORM\Column(length: 12)]
     private ?string $lotId;
     #[ORM\ManyToOne(fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'konkurs_id_id', referencedColumnName: 'konkurs_id', nullable: false)]
-    private ?Procedure $konkursId;
+    private ?Procedure $konkursIdId;
+
 
     public function __toString(): string
     {
@@ -58,7 +57,7 @@ class Lot
 
     public function getId(): int
     {
-        return $this->lotLey;
+        return $this->id;
     }
 
     public function getLotId(): ?string
@@ -75,12 +74,12 @@ class Lot
 
     public function getKonkursId(): ?string
     {
-        return $this->konkursId->getKonkursId();
+        return $this->konkursIdId->getKonkursId();
     }
 
     public function setKonkursId(?Procedure $procedure): static
     {
-        $this->konkursId = $procedure;
+        $this->konkursIdId = $procedure;
         return $this;
     }
 

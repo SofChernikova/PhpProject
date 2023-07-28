@@ -3,45 +3,34 @@
 namespace App\Service;
 
 use App\Dto\BalanceUnitDto;
-use App\Entity\BalanceUnit;
 use App\Exception\MyException;
-use App\Mapper\MapService;
 use App\Repository\BalanceUnitRepository;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Exception\ORMException;
-use Doctrine\ORM\OptimisticLockException;
+use Doctrine\DBAL\Exception;
 
 class BalanceUnitService
 {
-    public function __construct(private BalanceUnitRepository  $balanceUnitRepository,
-                                private EntityManagerInterface $entityManager,
-                                private MapService             $mapService)
+    public function __construct(private BalanceUnitRepository $balanceUnitRepository)
     {
     }
 
     /**
      * @throws MyException
      */
-    public function findUnitById($id)
+    public function findUnitById($id): void
     {
         $unit = $this->balanceUnitRepository->findOneBy(['burks' => $id]);
         if ($unit == null) throw new MyException("Неверное значение [burks]");
-        return $unit;
     }
 
+
     /**
-     * @throws OptimisticLockException
-     * @throws ORMException
+     * @throws Exception
      */
     public function save(BalanceUnitDto $dto)
     {
-        $entity = new BalanceUnit();
+        $int = $this->balanceUnitRepository->save($dto);
+        if($int > 0) return 'Успешно';
 
-        $entity = $this->mapService->mapDtoToEntity($dto, $entity, '-bu');
-        $this->entityManager->persist($entity);
-        $this->entityManager->flush();
-
-        return $entity;
     }
 }

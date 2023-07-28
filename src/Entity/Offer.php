@@ -17,12 +17,10 @@ class Offer
 
     #[ORM\ManyToOne(fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'konkurs_id_id', referencedColumnName: 'konkurs_id', nullable: false)]
-    #[ORM\Column(name: "konkurs_id_id")]
     private ?Procedure $konkursId;
 
     #[ORM\ManyToOne(fetch: 'EAGER')]
     #[ORM\JoinColumn(name: 'lot_id_id', referencedColumnName: 'lot_id', nullable: false)]
-    #[ORM\Column(name: "lot_id_id")]
     private ?Lot $lotId;
 
 
@@ -78,12 +76,13 @@ class Offer
         return $this;
     }
 
+
     public function getLotId(): ?string
     {
         return $this->lotId->getLotId();
     }
 
-    public function setLotId(?Lot $lotId): static
+    public function setLotId(Lot $lotId): static
     {
         $this->lotId = $lotId;
 

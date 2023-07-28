@@ -9,64 +9,66 @@ class SpecialistDto
         #[Assert\NotBlank(message: 'Параметр не может быть пустым!')]
         #[Assert\NotNull(message: 'Параметр не может быть пустым!')]
         #[Assert\Length(max: 12, maxMessage: 'Параметр не может быть больше {{ limit }} символов!')]
-        private ?string $konkursId,
+        private string $konkursId,
 
-        private ?int    $tabix,
+        private int    $tabix,
         #[Assert\NotBlank(message: 'Параметр не может быть пустым!')]
         #[Assert\NotNull(message: 'Параметр не может быть пустым!')]
         #[Assert\Length(max: 5, maxMessage: 'Параметр не может быть больше {{ limit }} символов!')]
-        private ?string $persFunc,
+        private string $persFunc,
 
         #[Assert\NotBlank(message: 'Параметр не может быть пустым!')]
         #[Assert\NotNull(message: 'Параметр не может быть пустым!')]
         #[Assert\Length(max: 12, maxMessage: 'Параметр не может быть больше {{ limit }} символов!')]
-        private ?string $persId,
+        private string $persId,
 
         #[Assert\NotBlank(message: 'Параметр не может быть пустым!')]
         #[Assert\NotNull(message: 'Параметр не может быть пустым!')]
         #[Assert\Length(max: 70, maxMessage: 'Параметр не может быть больше {{ limit }} символов!')]
-        private ?string $persFio
+        private string $persFio
     )
     {
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getKonkursId(): ?string
+    public function getKonkursId(): string
     {
         return $this->konkursId;
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getTabix(): ?int
+    public function getTabix(): int
     {
         return $this->tabix;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getPersFunc(): ?string
+    public function getPersFunc(): string
     {
         return $this->persFunc;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getPersId(): ?string
+    public function getPersId(): string
     {
         return $this->persId;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getPersFio(): ?string
+    public function getPersFio(): string
     {
         return $this->persFio;
     }
+
+
 }

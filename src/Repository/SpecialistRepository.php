@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Dto\SpecialistDto;
 use App\Entity\Specialist;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,6 +20,16 @@ class SpecialistRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Specialist::class);
+    }
+
+    public function save(SpecialistDto $dto): int
+    {
+        return $this->getEntityManager()->getConnection()->insert('ZTINMM_TK_PERS',
+            ['konkurs_id_id' => $dto->getKonkursId(),
+                'tabix' => $dto->getTabix(),
+                'pers_func' => $dto->getPersFunc(),
+                'pers_id' => $dto->getPersId(),
+                'pers_fio' => $dto->getPersFio()]);
     }
 
 //    /**

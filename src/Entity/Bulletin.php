@@ -28,7 +28,7 @@ class Bulletin
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Offer $lifnr = null;
-//todo добавить название столбца
+
     #[ORM\Column(length: 1, nullable: true)]
     private ?string $voteRes = null;
 
@@ -38,11 +38,11 @@ class Bulletin
     #[ORM\Column(length: 1, nullable: true)]
     private ?string $voteWin = null;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
-    private ?\DateTimeImmutable $voteDate = null;
+    #[ORM\Column(nullable: true)]
+    private ?string $voteDate = null;
 
-    #[ORM\Column(type: Types::TIME_IMMUTABLE, nullable: true)]
-    private ?\DateTimeImmutable $voteTime = null;
+    #[ORM\Column(nullable: true)]
+    private ?string $voteTime = null;
 
     #[ORM\Column(length: 12)]
     private ?string $voteUser = null;
@@ -136,31 +136,26 @@ class Bulletin
         return $this;
     }
 
-    public function getVoteDate(): ?\DateTimeImmutable
+    public function getVoteDate(): ?string
     {
         return $this->voteDate;
     }
 
-    /**
-     * @throws \Exception
-     */
+
     public function setVoteDate(string $voteDate): static
     {
-        $date = new \DateTimeImmutable($voteDate);
-        $this->voteDate = $date->format('Y-m-d');
-
+        $this->voteDate = $voteDate;
         return $this;
     }
 
-    public function getVoteTime(): ?\DateTimeImmutable
+    public function getVoteTime(): ?string
     {
         return $this->voteTime;
     }
 
     public function setVoteTime(string $voteTime): static
     {
-        $time = new \DateTimeImmutable($voteTime);
-        $this->voteTime = $time->format('H:i:s');
+        $this->voteTime = $voteTime;
 
         return $this;
     }

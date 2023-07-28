@@ -2,8 +2,11 @@
 
 namespace App\Repository;
 
+use App\Dto\BalanceUnitDto;
 use App\Entity\BalanceUnit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,6 +23,17 @@ class BalanceUnitRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, BalanceUnit::class);
     }
+
+    /**
+     * @throws Exception
+     */
+    public function save(BalanceUnitDto $dto): int
+    {
+       return $this->getEntityManager()->getConnection()->insert('T001',
+            ['burks' => $dto->getBurks(),
+                'butxt' => $dto->getButxt()]);
+    }
+
 
 //    /**
 //     * @return BalanceUnit[] Returns an array of BalanceUnit objects

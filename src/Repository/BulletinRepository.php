@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Dto\BulletinDto;
 use App\Entity\Bulletin;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,6 +21,26 @@ class BulletinRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Bulletin::class);
+    }
+
+    /**
+     * @param BulletinDto $dto
+     * @return int
+     * @throws Exception
+     */
+    public function save(BulletinDto $dto): int
+    {
+        return $this->getEntityManager()->getConnection()->insert('ZTINMM_TK_VOTE',
+            ['konkurs_id_id' => $dto->getKonkursId(),
+                'lifnr_id' => $dto->getLifnr(),
+                'stat' => $dto->getStat(),
+                'pers_id' => $dto->getPersId(),
+                'vote_res' => $dto->getVoteRes(),
+                'vote_finish' => $dto->getVoteFinish(),
+                'vote_win' => $dto->getVoteWin(),
+                'vote_date' => $dto->getVoteDate(),
+                'vote_time' => $dto->getVoteTime(),
+                'vote_user' => $dto->getVoteUser()]);
     }
 
 //    /**

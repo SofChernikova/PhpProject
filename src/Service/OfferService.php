@@ -3,56 +3,50 @@
 namespace App\Service;
 
 use App\Dto\OfferDto;
-use App\Entity\Offer;
 use App\Exception\MyException;
-use App\Mapper\MapService;
 use App\Repository\OfferRepository;
-use Doctrine\ORM\EntityManagerInterface;
+
 
 class OfferService
 {
-    public function __construct(private OfferRepository $offerRepository,
-                                private LotService $lotService,
-                                private ProcedureService $procedureService,
-                                private EntityManagerInterface $entityManager,
-                                private MapService             $mapService)
+    public function __construct(private OfferRepository        $offerRepository,
+                                private LotService             $lotService,
+                                private ProcedureService       $procedureService)
     {
     }
 
-    public function findByLotId($id){
+    public function findAllByProcedureId($id)
+    {
+        $oneBy = $this->offerRepository->findBy(['konkursId' => $id]);
+        if ($oneBy == null) throw new MyException("Неверное значение [konkursId]");
+        return $oneBy;
+    }
+    public function findByLotId($id)
+    {
         $oneBy = $this->offerRepository->findBy(['lotId' => $id]);
         if ($oneBy == null) throw new MyException("Неверное значение [lotId]");
         return $oneBy;
     }
 
-    public function findByTabix($tabix){
-        $oneBy = $this->offerRepository->findOneBy(['tabix'=>$tabix]);
+    public function findByTabix($tabix)
+    {
+        $oneBy = $this->offerRepository->findOneBy(['tabix' => $tabix]);
         if ($oneBy == null) throw new MyException("Неверное значение [tabix]");
         return $oneBy;
     }
-    public function findByLifnr($lifnr){
-        $oneBy = $this->offerRepository->findOneBy(['lifnr'=>$lifnr]);
+
+    public function findByLifnr($lifnr): void
+    {
+        $oneBy = $this->offerRepository->findOneBy(['lifnr' => $lifnr]);
         if ($oneBy == null) throw new MyException("Неверное значение [lifnr]");
-        return $oneBy;
     }
-    public function save(OfferDto $dto){
-        $entity = new Offer();
 
-        $procedure = $this->procedureService->findById($dto->getKonkursId());
-        $entity->setKonkursId($procedure);
+    public function save(OfferDto $dto)
+    {
+        $this->procedureService->findById($dto->getKonkursId());
+        $this->lotService->findById($dto->getLotId());
 
-        $lot = $this->lotService->findById($dto->getLotId());
-        $entity->setLotId($lot);
-
-        $entity->setOrfDate($dto->getOrfDate());
-        $entity->setOrfTime($dto->getOrfTime());
-        $entity->setDeliverDate($dto->getDeliverDate());
-        $entity->setDeliverTime($dto->getDeliverTime());
-
-        $entity = $this->mapService->mapDtoToEntity($dto, $entity, '-o');
-        $this->entityManager->persist($entity);
-        $this->entityManager->flush();
-
-        return $entity;
+        $int = $this->offerRepository->save($dto);
+        if($int > 0) return 'Успешно';
     }
 }

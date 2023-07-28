@@ -2,9 +2,13 @@
 
 namespace App\Repository;
 
+use App\Dto\ProcedureDto;
 use App\Entity\Procedure;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
+use function Symfony\Component\ErrorHandler\Tests\testHeader;
 
 /**
  * @extends ServiceEntityRepository<Procedure>
@@ -20,6 +24,21 @@ class ProcedureRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Procedure::class);
     }
+
+    public function save(ProcedureDto $dto): int
+    {
+        return $this->getEntityManager()->getConnection()->insert('ZTINMM_TK_H',
+            ['burks_id' => $dto->getBurks(),
+                'konkurs_id' => $dto->getKonkursId(),
+                'konkurs_nr' => $dto->getKonkursNr(),
+                'konkurs_name' => $dto->getKonkursName(),
+                'org_key' => $dto->getOrgKey(),
+                'stat' => $dto->getStat(),
+                'crt_date' => $dto->getCrtDate(),
+                'crt_time' => $dto->getCrtTime(),
+                'crt_user' => $dto->getCrtUser()]);
+    }
+
 
 
 

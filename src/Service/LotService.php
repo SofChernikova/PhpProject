@@ -3,25 +3,20 @@
 namespace App\Service;
 
 use App\Dto\LotDto;
-use App\Entity\BalanceUnit;
-use App\Entity\Lot;
 use App\Exception\MyException;
-use App\Mapper\MapService;
 use App\Repository\LotRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\DBAL\Exception;
 
 class LotService
 {
-    public function __construct(private LotRepository    $lotRepository,
-                                private ProcedureService $procedureService,
-                                private EntityManagerInterface $entityManager,
-                                private MapService             $mapService)
+    public function __construct(private LotRepository          $lotRepository,
+                                private ProcedureService       $procedureService)
     {
     }
 
     public function findAllByProcedureId($id)
     {
-        $oneBy = $this->lotRepository->findBy(['konkursId'=>$id]);
+        $oneBy = $this->lotRepository->findBy(['konkursIdId' => $id]);
         if ($oneBy == null) throw new MyException("Неверное значение [konkursId]");
         return $oneBy;
     }
@@ -33,17 +28,14 @@ class LotService
         return $oneBy;
     }
 
+    /**
+     * @throws Exception
+     */
     public function save(LotDto $dto)
     {
-        $entity = new Lot();
+        $this->procedureService->findById($dto->getKonkursId());
 
-        $procedure = $this->procedureService->findById($dto->getKonkursId());
-        $entity->setKonkursId($procedure);
-
-        $entity = $this->mapService->mapDtoToEntity($dto, $entity, '-l');
-        $this->entityManager->persist($entity);
-        $this->entityManager->flush();
-
-        return $entity;
+        $int = $this->lotRepository->save($dto);
+        if($int > 0) return 'Успешно';
     }
 }

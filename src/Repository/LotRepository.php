@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Dto\LotDto;
 use App\Entity\Lot;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,6 +22,26 @@ class LotRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Lot::class);
     }
+
+    /**
+     * @param LotDto $dto
+     * @return int
+     * @throws Exception
+     */
+    public function save(LotDto $dto): int
+    {
+        return $this->getEntityManager()->getConnection()->insert('ZINMM_SOF_LOT_H',
+            ['konkurs_id_id' => $dto->getKonkursId(),
+                'lot_id' => $dto->getLotId(),
+                'lot_nr' => $dto->getLotNr(),
+                'lot_name' => $dto->getLotName(),
+                'ekorg' => $dto->getEkorg(),
+                'finan_limit_wvat' => $dto->getFinanLimitWvat(),
+                'finan_limit_wovat' => $dto->getFinanLimitWovat(),
+                'vat_rate' => $dto->getVatRate(),
+                'cals_nds' => $dto->getCalsNds()]);
+    }
+
 
 //    /**
 //     * @return Lot[] Returns an array of Lot objects
